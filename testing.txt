@@ -1,0 +1,1 @@
+Hi. I'm testing making a repository from terminal. This will be the first file I add to the repo.
