@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myflutterapp/google_maps_screen.dart';
+import 'package:myflutterapp/globals.dart';
 
 void main() {
   runApp(const MainApp());
 }
-
-const Color mantisGreen = Color.fromRGBO(102, 188, 122, 1.0);
-const Color skyBlue = Color.fromRGBO(56, 184, 235, 1.0);
-const Color crimsonRed = Color.fromRGBO(219, 35, 72, 1.0);
-const Color lightBlack = Colors.black87;
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -44,30 +41,13 @@ class HomeScreen extends StatelessWidget {
             debugPrint('Button pressed');
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const NewScreen()),
+              MaterialPageRoute(builder: (context) => const GoogleMapsScreen()),
             );
           },
           child: const Text(
             'Start',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class NewScreen extends StatelessWidget {
-  const NewScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: const Text(
-          'New Screen!',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );
