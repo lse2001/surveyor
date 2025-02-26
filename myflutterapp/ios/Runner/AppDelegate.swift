@@ -8,7 +8,7 @@ import GoogleMaps
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    let apiKey = "AIzaSyDWlSlbPHrqQLB_iUHiUDSWjudt1BZTXTE" // Add your actual API key here
+    let apiKey = "" // Add your actual API key here
     if apiKey.isEmpty {
       print("Google Maps API key is missing!")
     } else {
