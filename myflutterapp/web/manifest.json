@@ -1,6 +1,6 @@
 {
-    "name": "testasdf",
-    "short_name": "testasdf",
+    "name": "myflutterapp",
+    "short_name": "myflutterapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

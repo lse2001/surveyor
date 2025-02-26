@@ -1,1 +1,5 @@
 Hi. I'm testing making a repository from terminal. This will be the first file I add to the repo.
+
+Mantis Green:rgb(102, 188, 122)
+Sky Blue:rgb(56, 184, 235)
+Crimson Red:rgb(219, 35, 72)

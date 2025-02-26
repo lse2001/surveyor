@@ -1,4 +1,4 @@
-package com.example.testasdf
+package com.example.myflutterapp
 
 import io.flutter.embedding.android.FlutterActivity
 
