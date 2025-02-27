@@ -15,6 +15,7 @@ class GoogleMapsScreenState extends State<GoogleMapsScreen> {
   GoogleMapController? _mapController;
   LatLng? _currentPosition;
   bool _isLoading = true;
+  Set<Marker> _markers = {};
 
   @override
   void initState() {
@@ -88,6 +89,47 @@ class GoogleMapsScreenState extends State<GoogleMapsScreen> {
     }
   }
 
+  void _dropPin() async {
+    if (_currentPosition != null) {
+      bool confirm = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Drop Pin'),
+            content: const Text(
+              'Do you want to drop a pin at your current location?',
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Confirm'),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirm) {
+        setState(() {
+          _markers.add(
+            Marker(
+              markerId: MarkerId(_currentPosition.toString()),
+              position: _currentPosition!,
+              infoWindow: const InfoWindow(title: 'Current Location'),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueBlue,
+              ),
+            ),
+          );
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,15 +151,29 @@ class GoogleMapsScreenState extends State<GoogleMapsScreen> {
                   textAlign: TextAlign.center,
                 ),
               )
-              : GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: _currentPosition!,
-                  zoom: 16.0,
-                ),
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                zoomControlsEnabled: true,
+              : Stack(
+                children: [
+                  GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                      target: _currentPosition!,
+                      zoom: 16.0,
+                    ),
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    zoomControlsEnabled: true,
+                    markers: _markers,
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    left: 16,
+                    child: FloatingActionButton(
+                      onPressed: _dropPin,
+                      backgroundColor: skyBlue,
+                      child: const Icon(Icons.pin_drop, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
     );
   }
