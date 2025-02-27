@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myflutterapp/globals.dart';
+import 'package:myflutterapp/survey_form.dart';
 
 class GoogleMapsScreen extends StatefulWidget {
   const GoogleMapsScreen({super.key});
@@ -114,20 +115,33 @@ class GoogleMapsScreenState extends State<GoogleMapsScreen> {
       );
 
       if (confirm) {
-        setState(() {
-          _markers.add(
-            Marker(
-              markerId: MarkerId(_currentPosition.toString()),
-              position: _currentPosition!,
-              infoWindow: const InfoWindow(title: 'Current Location'),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueBlue,
-              ),
-            ),
-          );
-        });
+        _showSurveyForm();
       }
     }
+  }
+
+  void _showSurveyForm() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SurveyForm(
+          onSubmit: (String title, String description) {
+            setState(() {
+              _markers.add(
+                Marker(
+                  markerId: MarkerId(_currentPosition.toString()),
+                  position: _currentPosition!,
+                  infoWindow: InfoWindow(title: title, snippet: description),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue,
+                  ),
+                ),
+              );
+            });
+          },
+        );
+      },
+    );
   }
 
   @override
